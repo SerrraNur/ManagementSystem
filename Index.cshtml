@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+@await Html.PartialAsync("HeaderPartial")
+<body>
+    <br />
+    
+    <!-- Login Page -->
+    <div id="loginPage" class="page">
+        <div class="login-container">
+
+            @await Component.InvokeAsync("LoginList")
+
+        </div>
+    </div>
+
+    <!-- Student Panel Page -->
+    <div id="studentPage" class="page">
+
+        @await Component.InvokeAsync("CourseSelectedList")
+
+    </div>
+
+    <!-- Advisor Panel Page -->
+    <div id="advisorPage" class="page">
+        @await Component.InvokeAsync("AdvisorList")
+    </div>
+
+    <!-- Transcript Page -->
+    <div id="transcriptPage" class="page">
+        @await Component.InvokeAsync("TranscriptList")
+    </div>
+
+    <script>
+        function showPage(page) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.style.display = 'none');
+
+            // Show the selected page
+            document.getElementById(page).style.display = 'block';
+        }
+
+        function login() {
+            const userType = document.getElementById("userType").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username && password) {
+                if (userType === "student" && username === "student" && password === "1234") {
+                    alert("Student login successful!");
+                    showPage('studentPage'); // Show student page
+                } else if (userType === "advisor" && username === "advisor" && password === "5678") {
+                    alert("Advisor login successful!");
+                    showPage('advisorPage'); // Show advisor page
+                } else {
+                    alert("Invalid username or password!");
+                }
+            } else {
+                alert("Please fill all fields.");
+            }
+        }
+
+        function submitCourses() {
+            const checkboxes = document.querySelectorAll("#courseSelectionForm input[type='checkbox']");
+            const selectedCourses = [];
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) selectedCourses.push(checkbox.value);
+            });
+
+            if (selectedCourses.length > 0) {
+                alert("Selected Courses: " + selectedCourses.join(", "));
+            } else {
+                alert("Please select at least one course.");
+            }
+        }
+
+        function viewTranscript() {
+            alert("Redirecting to transcript...");
+            showPage('transcriptPage'); // Show transcript page
+        }
+
+        function approveCourse(course, student) {
+            alert(`Approved ${course} for ${student}`);
+        }
+
+        function rejectCourse(course, student) {
+            alert(`Rejected ${course} for ${student}`);
+        }
+
+        // Show the login page on initial load
+        showPage('loginPage');
+    </script>
+</body>
+</html>
