@@ -1,0 +1,14 @@
+﻿@using EntityLayer.Concrete
+@model List<Login>
+<h1>Login</h1>
+@foreach (var item in Model)
+{
+    <select id="userType">
+    <option value="student">Student</option>
+    <option value="advisor">Advisor</option>
+</select>
+<input type="text" id="username" placeholder="Username" required>
+<input type="password" id="password" placeholder="Password" required>
+<button onclick="login()">Login</button>
+<a href="#">Forgot Password?</a>
+}
