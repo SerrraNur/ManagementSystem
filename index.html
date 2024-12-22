@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+            .login-container h1 {
+                margin-bottom: 20px;
+            }
+
+            .login-container input[type="text"],
+            .login-container input[type="password"],
+            .login-container select {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .login-container button {
+                width: 100%;
+                padding: 10px;
+                background: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .login-container button:hover {
+                    background: #0056b3;
+                }
+
+            .login-container a {
+                display: block;
+                margin-top: 10px;
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .login-container a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Student Panel Styles */
+        .panel-container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+            ul li {
+                margin: 10px 0;
+            }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button.reject {
+                background-color: #dc3545;
+            }
+
+        /* Transcript Styles */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+        /* Hide all pages initially */
+        .page {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page">
+        <div class="login-container">
+            <h1>Login</h1>
+            <select id="userType">
+                <option value="student">Student</option>
+                <option value="advisor">Advisor</option>
+            </select>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+            <a href="#">Forgot Password?</a>
+        </div>
+    </div>
+
+    <!-- Student Panel Page -->
+    <div id="studentPage" class="page">
+        <div class="panel-container">
+            <h1>Welcome, Student</h1>
+            <h2>Select Courses</h2>
+            <form id="courseSelectionForm">
+                <label><input type="checkbox" value="Mathematics"> Mathematics</label><br>
+                <label><input type="checkbox" value="Physics"> Physics</label><br>
+                <label><input type="checkbox" value="Chemistry"> Chemistry</label><br>
+                <button type="button" onclick="submitCourses()">Submit</button>
+            </form>
+
+            <h2>Transcript</h2>
+            <button onclick="viewTranscript()">View Transcript</button>
+        </div>
+    </div>
+
+    <!-- Advisor Panel Page -->
+    <div id="advisorPage" class="page">
+        <div class="panel-container">
+            <h1>Welcome, Advisor</h1>
+            <h2>Approve Courses</h2>
+            <ul id="courseRequests">
+                <li>
+                    Mathematics - Student A
+                    <button onclick="approveCourse('Mathematics', 'Student A')">Approve</button>
+                    <button class="reject" onclick="rejectCourse('Mathematics', 'Student A')">Reject</button>
+                </li>
+                <li>
+                    Physics - Student B
+                    <button onclick="approveCourse('Physics', 'Student B')">Approve</button>
+                    <button class="reject" onclick="rejectCourse('Physics', 'Student B')">Reject</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Transcript Page -->
+    <div id="transcriptPage" class="page">
+        <div class="container">
+            <h1>Transcript</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Credit</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="transcriptData">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+            <a href="studentDashboard.html" class="btn">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        function showPage(page) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.style.display = 'none');
+
+            // Show the selected page
+            document.getElementById(page).style.display = 'block';
+        }
+
+        function login() {
+            const userType = document.getElementById("userType").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username && password) {
+                if (userType === "student" && username === "student" && password === "1234") {
+                    alert("Student login successful!");
+                    showPage('studentPage'); // Show student page
+                } else if (userType === "advisor" && username === "advisor" && password === "5678") {
+                    alert("Advisor login successful!");
+                    showPage('advisorPage'); // Show advisor page
+                } else {
+                    alert("Invalid username or password!");
+                }
+            } else {
+                alert("Please fill all fields.");
+            }
+        }
+
+        function submitCourses() {
+            const checkboxes = document.querySelectorAll("#courseSelectionForm input[type='checkbox']");
+            const selectedCourses = [];
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) selectedCourses.push(checkbox.value);
+            });
+
+            if (selectedCourses.length > 0) {
+                alert("Selected Courses: " + selectedCourses.join(", "));
+            } else {
+                alert("Please select at least one course.");
+            }
+        }
+
+        function viewTranscript() {
+            alert("Redirecting to transcript...");
+            showPage('transcriptPage'); // Show transcript page
+        }
+
+        function approveCourse(course, student) {
+            alert(`Approved ${course} for ${student}`);
+        }
+
+        function rejectCourse(course, student) {
+            alert(`Rejected ${course} for ${student}`);
+        }
+
+        // Show the login page on initial load
+        showPage('loginPage');
+    </script>
+</body>
+</html>
