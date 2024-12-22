@@ -1,0 +1,23 @@
+﻿@using EntityLayer.Concrete
+@model List<Core_ManagementSystem.Models.AdvisorViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="panel-container">
+
+        <h1>@item.FullName</h1>
+        <h2>Approve Courses</h2>
+        <ul id="courseRequests">
+            <li>
+                @item.Course_Name - @item.Student_ID
+                <button onclick="approveCourse('@item.Course_Name', '@item.Student_ID')">Approve</button>
+                <button class="reject" onclick="rejectCourse('@item.Course_Name', '@item.Student_ID')">Reject</button>
+            </li>
+            <li>
+                @item.Course_Name - @item.Student_ID
+                <button onclick="approveCourse('@item.Course_Name', '@item.Student_ID')">Approve</button>
+                <button class="reject" onclick="rejectCourse('@item.Course_Name', '@item.Student_ID')">Reject</button>
+            </li>
+        </ul>
+    </div>
+}
