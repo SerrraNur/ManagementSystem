@@ -1,0 +1,53 @@
+﻿<!--Daha düzenlenmedi kod,Tekrar Bak-->
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Admin Panel</title>
+
+    <!-- Argon Dashboard CSS -->
+    <link href="~/css/argon-dashboard.css" rel="stylesheet" />
+
+    <!-- İhtiyaç duyulan ekstra stil dosyaları varsa buraya ekleyebilirsiniz -->
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Panel</h3>
+        </div>
+        <ul>
+            <li><a href="/Home/Dashboard">Dashboard</a></li>
+            <li><a href="/Advisor/Index">Advisor</a></li>
+            <li><a href="/CourseSelection/Index">Course Selection</a></li>
+            <li><a href="/Login/Index">Login</a></li>
+            <li><a href="/Transcript/Index">Transcript</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>@ViewData["Title"]</h1>
+        </header>
+
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Admin Panel</p>
+    </footer>
+
+    <!-- Argon Dashboard JS -->
+    <script src="~/js/argon-dashboard.js"></script>
+
+    <!-- Diğer JS dosyalarını burada ekleyebilirsiniz -->
+</body>
+</html>
