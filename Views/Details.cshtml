@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Transcript Detayları</h2>
+<p>Öğrenci: @ViewBag.StudentName</p>
+<p>Öğrenci Numarası: @ViewBag.StudentId</p>
+<h3>Dersler:</h3>
+<ul>
+    @foreach (var course in (string[])ViewBag.TranscriptData)
+    {
+        <li>@course</li>
+    }
+</ul>

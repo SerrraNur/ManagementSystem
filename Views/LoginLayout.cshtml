@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Login</h2>
+<form action="/Login/Authenticate" method="post">
+    <label for="username">Kullanıcı Adı:</label>
+    <input type="text" id="username" name="username" />
+    <br />
+    <label for="password">Şifre:</label>
+    <input type="password" id="password" name="password" />
+    <br />
+    <button type="submit">Giriş Yap</button>
+</form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <p style="color: red;">@ViewBag.ErrorMessage</p>
+}
