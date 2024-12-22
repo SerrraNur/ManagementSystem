@@ -1,0 +1,30 @@
+﻿@model List<Core_ManagementSystem.Models.TranscriptViewModel>
+
+<div class="container">
+    @foreach (var transcript in Model)
+    {
+        <h1>Transcript for @transcript.Student.FullName</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Credit</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody id="transcriptData">
+                @foreach (var courseDetail in transcript.CourseDetails)
+                {
+                    <tr>
+                        <td>@courseDetail.CourseName</td>
+                        <td>@courseDetail.Credit</td>
+                        <td>@courseDetail.Grade</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <a href="studentDashboard.html" class="btn">Back to Dashboard</a>
+    <hr />
+    }
+</div>
